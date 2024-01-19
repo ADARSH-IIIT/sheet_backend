@@ -1,5 +1,5 @@
 import express from "express"
-import { creds_compare, signup } from "../controller/authCONTROLLER.js"
+import {  signin, signup } from "../controller/authCONTROLLER.js"
 
 
 
@@ -8,8 +8,7 @@ const authROUTER  = express.Router()
 
 
 authROUTER.post('/signup' ,  signup)
-authROUTER.post('/signin' ,  creds_compare)
-
+authROUTER.post('/signin' ,  signin)
 
 
 

@@ -118,9 +118,12 @@ res.json({  error : false     ,  mssg:`u r welcome ${userdetails.username}`})
 
 
 
-export async function creds_compare(req , res){
+export async function signin(req , res){
 
     try {
+
+        const SECRET = process.env.SECRET || "sdssdfrwer4"
+
 
         ////////////////////////////////////////////////////////////  destructuring///////////////////////////////
         const {  email , password } = req.body
@@ -158,7 +161,25 @@ export async function creds_compare(req , res){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        res.json({error : false , mssg : "creds compared carefullyyy"})
+
+////////////////////////////////////////////// setting jwt ///////////////////////////////////////////////////
+
+// creating login token 
+const logintoken = JWT.sign( {_id : userdetails._id  } , SECRET , {expiresIn : '24h'}    )
+
+
+//writing cookie details
+const cookieoption = {  httpOnly : true , maxAge : 1*60*60*24*1000 , secure : true , sameSite : "None"}
+
+
+// setting token and cookie details to cookie in frontend
+res.cookie( "logintoken" , logintoken  , cookieoption  )
+
+
+res.json({  error : false     ,  mssg:`u r welcome ${userdetails.username}`})
+
+
+     
 
 
         
