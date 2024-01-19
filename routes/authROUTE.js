@@ -7,7 +7,7 @@ import { signup } from "../controller/authCONTROLLER.js"
 const authROUTER  = express.Router()
 
 
-authROUTER.get('/' ,  signup)
+authROUTER.post('/signup' ,  signup)
 
 
 

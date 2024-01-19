@@ -12,6 +12,7 @@ connect_to_db(db_url)
 
 // server.get('/' , (req , res)=>{   res.json({mssg : "route working properly"})    })
 
+server.use(express.json())
 
 
 server.use(authROUTER)
