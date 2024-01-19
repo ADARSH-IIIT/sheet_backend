@@ -118,7 +118,67 @@ res.json({  error : false     ,  mssg:`u r welcome ${userdetails.username}`})
 
 
 
+export async function creds_compare(req , res){
 
+    try {
+
+        ////////////////////////////////////////////////////////////  destructuring///////////////////////////////
+        const {  email , password } = req.body
+
+
+
+        if(    !email   || !password  ) {  
+            return res.json({error : true , mssg : "pls provide all 2 creds....."}) 
+        }
+//////////////////////////////////////////////////////////  validation starts here //////////////////////
+
+       
+
+//////////////////////////////////////////////////////////////////////  findiing user in db with that mail id///////////////////////
+        const userdetails = await USERreference.findOne({email}).select("+password")
+        // console.log(userdetails);
+        if(!userdetails){
+            return res.json({error : false , mssg : "invalid creds........"})
+        }
+
+
+        //////////////////////////////////////////////////    comparing hashed and entered password using bcrypt.compare
+        if(  !await bcrypt.compare( password , userdetails.password )  ){ 
+            return res.json({  error : true   , mssg :  "invalid creds......."})
+         }
+
+
+
+//////////////////////////      SOCKET KI HELP SE 2 STEP VERIFICATION KR SAKTE HAIN YAHAN ////////////////
+//*
+//*
+//*
+//*
+//*
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        res.json({error : false , mssg : "creds compared carefullyyy"})
+
+
+        
+    } catch (error) {
+
+        console.log("error at backend at signin controller");
+        // console.log(error);
+        res.json({error : true , mssg : "some internal error at server"})
+
+        
+    }
+
+
+
+
+
+
+
+
+}
 
 
 
