@@ -1,4 +1,5 @@
 import express from "express"
+import { signup } from "../controller/authCONTROLLER.js"
 
 
 
@@ -6,7 +7,7 @@ import express from "express"
 const authROUTER  = express.Router()
 
 
-authROUTER.get('/' , (req , res)=>{ res.json({ mssg : "sjkfioffjdfij"}) })
+authROUTER.get('/' ,  signup)
 
 
 
