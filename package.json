@@ -4,13 +4,14 @@
   "description": "this is backend for google sheet clone",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1" ,
-    "server" : "nodemon ./entry/start.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon ./entry/start.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
-  } ,
+    "express": "^4.18.2",
+    "mongoose": "^8.1.0"
+  },
   "type": "module"
 }
