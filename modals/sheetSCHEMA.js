@@ -27,7 +27,9 @@ const sheetSCHEMA = new mongoose.Schema({
 
     
     accessed_people_id : {
-            type : [ { type: mongoose.Schema.Types.ObjectId, ref: "userdetail" } ]
+
+        /// emails ids are values inside the array
+            type : [ { String } ]
     } ,
 
   
@@ -40,7 +42,8 @@ const sheetSCHEMA = new mongoose.Schema({
 
   
   edit_able_people_id : {
-          type : [ { type: mongoose.Schema.Types.ObjectId, ref: "userdetail" } ]
+        /// emails ids are values inside the array
+          type : [ { String } ]
   } 
 
 
