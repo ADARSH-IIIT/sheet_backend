@@ -2,6 +2,8 @@ import express from 'express'
 import connect_to_db from '../database/connect_to_db.js'
 import authROUTER from '../routes/authROUTE.js'
 
+
+import cookieParser  from 'cookie-parser'
 const server = express()
 
 
@@ -14,6 +16,8 @@ connect_to_db(db_url)
 
 server.use(express.json())
 
+
+server.use(cookieParser())
 
 server.use(authROUTER)
 
