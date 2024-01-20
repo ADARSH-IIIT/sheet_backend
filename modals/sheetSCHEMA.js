@@ -26,7 +26,7 @@ const sheetSCHEMA = new mongoose.Schema({
      } ,
 
     
-    accessed_people_id : {
+    accessed_people_email : {
 
         /// emails ids are values inside the array
             type : [ { String } ]
@@ -41,7 +41,7 @@ const sheetSCHEMA = new mongoose.Schema({
    } ,
 
   
-  edit_able_people_id : {
+  edit_able_people_email : {
         /// emails ids are values inside the array
           type : [ { String } ]
   } 
