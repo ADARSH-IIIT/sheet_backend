@@ -203,3 +203,31 @@ res.json({  error : false     ,  mssg:`u r welcome ${userdetails.username}`})
 
 
 
+export async function logout(req, res){
+
+    try {
+ 
+     res.cookie( "logintoken" , undefined  , null  )
+ 
+     res.json({      error: false ,mssg:"logged out successfullly"})
+     
+    } catch (error) {
+ 
+     res.json({       error : true  ,mssg: "internal error at server"})
+ 
+     console.log("error at backend controller function LOGOUT");
+    //  console.log(error);
+     
+    }
+     
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ }
+ 
+ 
