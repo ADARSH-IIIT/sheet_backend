@@ -10,8 +10,14 @@ const data_schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: "sheet"  
     } ,
 
-   
-    data : [      {   row : Number , col : Number ,  content : String         }       ]
+
+    row_number : {
+        type : Number
+    }
+    ,  
+
+
+    content : [  {   row : Number , col : Number ,  data : String         }       ]
    
 
 
@@ -27,7 +33,7 @@ const data_schema = new mongoose.Schema({
 
 
 
-const datasaveREFERERNCE = new mongoose.model("row_wise_access", data_schema)
+const datasaveREFERERNCE = new mongoose.model("cell_data", data_schema)
 
 
 
