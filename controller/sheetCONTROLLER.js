@@ -85,7 +85,13 @@ export async function create_sheet(req , res){
 export async function row_wise_access(req , res){
 
 
-    ///// saving mails for row wise access
+ ///////////////////////////////////////////////////////// this controller will save row wise access for selected sheet///////
+ /////////////////////////   if once already provided row access ,then this time it will update ////////
+ //////////////////  on admin of selected sheet can do this , uske liye check sheet admin middleware bana diya hai 
+
+
+
+
 
     try {
 
@@ -152,11 +158,48 @@ export async function row_wise_access(req , res){
 
 
 
+}
 
 
+
+
+export async function save_sheet_data(req , res){
+
+
+    ///////////////////////////////////////    this route will take data from fronted according to cell and save/update it to perfect row and coloumn
+    ///////////    whether you can edit on that row or not bhi check hoga 
+
+
+            try {
+
+                    const { sheet_id } = req.params
+                    console.log(sheet_id);
+
+                    /////////////////////////////////////////////////////////    checking whether sheet exist or not ///////////////////////////////////////
+                    const sheet_details = await SHEETreference.findOne({ _id : sheet_id} )
+
+
+                     if(!sheet_details){
+                             return res.json({error : true , mssg : "no sheet exist with this id "})
+                        }
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+
+                    
+
+
+
+
+                    res.json({error : false , mssg : "data saved successfully"})
+                
+            } catch (error) {
+
+                console.log("error at save_sheet_data_controller backend");
+                // console.log(error);
+                res.json({error : true , mssg : "internal server error at backend "})
+                
+            }
 
 
 
 }
-
-
