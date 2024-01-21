@@ -13,7 +13,7 @@ const row_access_schema = new mongoose.Schema({
    
     row_wise_access : {
 
-        type : [   [  {String}  ]   ]
+        type : [   [   String  ]   ]
 
     }
 
