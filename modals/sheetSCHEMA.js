@@ -21,6 +21,7 @@ const sheetSCHEMA = new mongoose.Schema({
 
     accessed_by : { 
           type : String ,
+        enum : ['anyone' , 'admin' , 'set']  ,
           required : [true , "pls provide who can see this sheet ==> anyone / only admin / [set of users] "] ,
           
      } ,
@@ -36,6 +37,7 @@ const sheetSCHEMA = new mongoose.Schema({
 
     edit_able_by : { 
         type : String ,
+        enum : ['anyone' , 'admin' , 'set']  ,
         required : [true , "pls provide who can edit this sheet ==> anyone / only admin / [set of users] "] ,
         
    } ,

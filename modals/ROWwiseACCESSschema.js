@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import validator from 'validator'
+
 
 
 const row_access_schema = new mongoose.Schema({ 
@@ -32,9 +32,9 @@ const row_access_schema = new mongoose.Schema({
 
 
 
-const USERreference = new mongoose.model("userdetail", userSCHEMA)
+const rowREFERERNCE = new mongoose.model("row_wise_access", row_access_schema)
 
 
 
 
-export default USERreference
+export default rowREFERERNCE
