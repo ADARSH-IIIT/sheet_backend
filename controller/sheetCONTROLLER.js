@@ -1,4 +1,5 @@
 import rowREFERERNCE from "../modals/ROWwiseACCESSschema.js";
+import datasaveREFERERNCE from "../modals/dataSCHEMA.js";
 import SHEETreference from "../modals/sheetSCHEMA.js";
 
 
@@ -173,6 +174,11 @@ export async function save_sheet_data(req , res){
             try {
 
                     const { sheet_id } = req.params
+
+                    const {content , row_number } = req.body
+                    //// content = [ { } , { } , {  }  ]
+                    ////// row indexing 0 se start hai
+
                     console.log(sheet_id);
 
                     /////////////////////////////////////////////////////////    checking whether sheet exist or not ///////////////////////////////////////
@@ -185,12 +191,45 @@ export async function save_sheet_data(req , res){
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       
 
-                    
+                    /////////////////////    agar is sheet and is row number  ka collection already exist krta hai toh update kro , warna ek new collection bana lo
+
+                    const isalreadypresent = await datasaveREFERERNCE.findOne(  { $and: [{ sheet_id: sheet_id }, { row_number: row_number }] }  )
+
+                    if(!isalreadypresent){
+                            /////////// present nhi h , new collection bana lo
+                            // console.log("creating new");
+                            const saver = await datasaveREFERERNCE.create({ sheet_id : sheet_id , content :   content , row_number : row_number   })
+
+                            // console.log(saver);
+
+                            return res.json({error : false , mssg : "saved successfully..........."})
+
+                    }
+
+
+                    if(isalreadypresent){
+                                ///////   tab 2 case bante hain  ,   row ke kisi cell ko update kr rhe ya , ek new row ko insert kr rahe
+
+                                // console.log("updating");
+
+                                // console.log(isalreadypresent);
+
+                                isalreadypresent.content = content
+
+                                const saver = await isalreadypresent.save()
+
+                                // console.log(saver);
+
+                                res.json({error : false , mssg : "updated successfully..........."})
+
+                    }
+             
 
 
 
 
-                    res.json({error : false , mssg : "data saved successfully"})
+
+                  
                 
             } catch (error) {
 
@@ -203,3 +242,7 @@ export async function save_sheet_data(req , res){
 
 
 }
+
+
+
+
