@@ -1,3 +1,4 @@
+import rowREFERERNCE from "../modals/ROWwiseACCESSschema.js";
 import SHEETreference from "../modals/sheetSCHEMA.js";
 
 
@@ -81,6 +82,81 @@ export async function create_sheet(req , res){
 
 
 
+export async function row_wise_access(req , res){
 
+
+    ///// saving mails for row wise access
+
+    try {
+
+        const { sheet_id } = req.params
+        const {   set_of_people  } = req.body
+
+        console.log(sheet_id , set_of_people);
+
+/////////////////////////////////////////////////////////    checking whether sheet exist or not ///////////////////////////////////////
+        const sheet_details = await SHEETreference.findOne({ _id : sheet_id} )
+
+
+        if(!sheet_details){
+            return res.json({error : true , mssg : "no sheet exist with this id "})
+        }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+
+
+
+        /////////////////////     agar ek baar row eccess kr diya gaya tha iss sheet ke liye , now thius is updated data////////
+
+        const isalreadypresent = await rowREFERERNCE.findOne({ sheet_id : sheet_id})
+
+
+        
+            //////////////////    saving for the first time ///////////////////////////////////////
+        
+        if(!isalreadypresent){
+
+              const saver = await rowREFERERNCE.create(  {sheet_id : sheet_id ,  row_wise_access : set_of_people}     )
+
+               console.log(saver , "saved for first time");
+
+                  return   res.json({error : false , mssg : "row access saved successfully"})
+        
+
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////////////////////    agar ek baar save hua hoga row access , then wo update ho jayega niche/////////////////////////
+         
+            const saver = await rowREFERERNCE.findOneAndUpdate( {sheet_id : sheet_id} , {row_wise_access : set_of_people }  )
+
+            console.log(saver , "already saved tha , abhi update kr diya");
+   
+           return res.json({error : false , mssg : "access updated successfullyyy........"})
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+        
+
+
+    } catch (error) {
+
+                    console.log("error at row_wise_controller backend");
+                    // console.log(error);
+                    res.json({error : true , mssg : "internal server error at backend "})
+        
+    }
+
+
+
+
+
+
+
+
+}
 
 
